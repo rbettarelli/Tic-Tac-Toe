@@ -15,6 +15,7 @@ body {
   border: 0;
   padding: 0;
   background-color: var(--primary);
+  font-family: 'Indie Flower';
 }
 
 h1 {
@@ -30,14 +31,14 @@ h1 {
 .choose-player-type {
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 10px;
   text-align: center;
-  min-width: 50%;
-  height: 190px;
+  height: 120px;
   margin: 1rem;
 }
 
-.player1, .selection {
+.player1,
+.selection {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -45,7 +46,7 @@ h1 {
   padding: 0.6rem;
   width: 100px;
   height: 30px;
-  font-size: 1rem;
+  font-size: 20px;
   background-color: var(--secondary);
   border-radius: 6px;
   margin: 1rem auto;
@@ -58,32 +59,27 @@ svg {
   fill: var(--secondary);
 }
 
-
-
 .selection:hover,
 button:hover {
   background-color: var(--primary);
   color: var(--secondary);
   transition: 0.5s ease;
-
+  cursor: pointer;
 }
 
-p , .player1 {
-  
+p,
+.player1 {
   color: var(--secondary);
   background-color: var(--primary);
-
 }
 
 .btnOnClick {
   background-color: var(--primary);
   color: var(--secondary);
-
+  margin-left: 0.7rem;
 }
 
-
 .showCurrent ::placeholder {
-  
   color: var(--primary);
   background-color: var(--secondary);
   border-radius: 6px;
@@ -104,7 +100,15 @@ p , .player1 {
   padding: 10px 0px;
   text-align: center;
   width: 150px;
- 
+}
+
+.typeSelection {
+  display: flex;
+  gap: 1rem;
+}
+
+.p2Win {
+  margin-top: 1px;
 }
 
 ::placeholder {
@@ -115,10 +119,39 @@ p , .player1 {
   color: var(--secondary);
   font-weight: 600;
 }
+#reset-button,
+.start-game {
+  text-align: center;
+  font-size: 20px;
+  color: #c0b698;
+  background-color: var(--secondary);
+  border: 1px solid var(--primary);
+  height: 55px;
+  width: 150px;
+  margin: 10px;
+}
+.reset-container {
+  display: none;
+}
+
+.start-game {
+  margin-top: 2rem;
+}
+
+.roundWinner {
+  height: 27px;
+  text-align: center;
+  color: var(--secondary);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 0;
+}
+.start-button-div {
+  display: none;
+}
 
 #board {
   display: none;
-  
 }
 
 span {
@@ -149,40 +182,19 @@ span {
   height: 300px;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
   justify-items: center;
-  margin: 5vh auto;
+  margin: 2vh auto;
 }
 
 .flex-column .text {
-
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding-bottom: 2vw;
   font-size: 2rem;
-
-}
-
-#reset-button,
-.start-game {
-  text-align: center;
-  font-size: 20px;
-  color: #c0b698;
-  background-color: var(--secondary);
-  border: 1px solid var(--primary);
-  height: 55px;
-  width: 150px;
-  margin: 10px;
-}
-
-.reset-container {
-  display: none;
-}
-
-.start-game {
-  margin-top: 2rem;
 }
 
 .footer {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -193,6 +205,13 @@ span {
   margin: auto;
   bottom: 0;
 }
+
+a {
+  text-decoration: none;
+  color: var(--secondary);
+  margin-bottom: 5px;
+}
+
 
 .fa-github {
   font-size: 24px;

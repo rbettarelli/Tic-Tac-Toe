@@ -2,7 +2,8 @@ const squares = Array.from(document.querySelectorAll("#board div"));
 const messages = document.querySelector("h2");
 const cellElements = document.querySelectorAll(".square");
 const turn = document.querySelector(".turn");
-const resetContainer = document.querySelector('.reset-container')
+const resetContainer = document.querySelector(".reset-container");
+const showWinner = document.querySelector(".roundWinner");
 
 const defaultPlayer = (name, sideID, type) => {
   let playerName = name;
@@ -35,11 +36,11 @@ const defaultPlayer = (name, sideID, type) => {
   };
 
   const showCurrentPlayer = () => {
-    showPlayer.classList.add('showCurrent')
+    showPlayer.classList.add("showCurrent");
   };
 
   const removeCurrentPlayer = () => {
-    showPlayer.classList.remove('showCurrent')
+    showPlayer.classList.remove("showCurrent");
   };
 
   return {
@@ -73,32 +74,34 @@ let player1 = defaultPlayer("Player 1", "p1-side", "player");
 let player2 = undefined;
 
 (function () {
-  
   let board = document.getElementById("board");
   let startBtn = document.querySelector(".start-game");
   let playerBtn = document.querySelector(".human");
   let cpuBtn = document.querySelector(".ai");
+  let startBtnContainer = document.querySelector(".start-button-div");
 
   playerBtn.addEventListener("click", () => {
     player2 = defaultPlayer("Player 2", "p2-side", "player");
     cpuBtn.style.display = "none";
-    playerBtn.classList.add('btnOnClick')
+    playerBtn.classList.add("btnOnClick");
+    startBtnContainer.style.display = "block";
   });
 
   cpuBtn.addEventListener("click", () => {
     player2 = defaultPlayer("Player 2", "p2-side", "cpu");
     playerBtn.style.display = "none";
-    cpuBtn.classList.add('btnOnClick')
+    cpuBtn.classList.add("btnOnClick");
+    startBtnContainer.style.display = "block";
   });
 
   startBtn.addEventListener("click", () => {
     if (defaultPlayer.type === "player") {
       cpuBtn.style.border = "none";
-    } else if (defaultPlayer.type ==='cpu') {
+    } else if (defaultPlayer.type === "cpu") {
       playerBtn.style.border = "none";
     }
-    startBtn.style.display ='none'
-    resetContainer.style.display = 'block'
+    startBtn.style.display = "none";
+    resetContainer.style.display = "block";
     board.style.display = "grid";
     GAME_BOARD.startGame();
   });
@@ -148,7 +151,9 @@ const GAME_BOARD = (function () {
             //win
             isPlaying = false;
             currentPlayer.addWin();
+
             restart();
+            
           } else if (boardArr.filter((elem) => elem).length === 9) {
             isPlaying = false;
             restart();
@@ -160,7 +165,9 @@ const GAME_BOARD = (function () {
                 fillSquare(CPU_PLAYER.getRobotMoveIndex(boardArr));
                 if (checkWinCondition()) {
                   currentPlayer.addWin();
+
                   restart();
+                  
                 } else if (boardArr.filter((elem) => elem).length === 9) {
                   restart();
                 } else {
@@ -178,11 +185,14 @@ const GAME_BOARD = (function () {
   const restart = () => {
     setTimeout(clearBoard, 1800);
     if (player1.getWin() < maximumFlags && player2.getWin() < maximumFlags) {
+      showWinnerRound();
       handleTurn();
+
       if (currentPlayer === player2 && player2.isCPU()) {
         setTimeout(() => {
           fillSquare(CPU_PLAYER.getRobotMoveIndex(boardArr));
           isPlaying = true;
+          showWinnerRound();
           handleTurn();
         }, 2600);
       } else {
@@ -254,7 +264,7 @@ const GAME_BOARD = (function () {
 
   const clearBoard = () => {
     boardArr = ["", "", "", "", "", "", "", "", ""];
-
+    showWinner.innerHTML = ''
     squares.forEach((square) => {
       let span = square.firstElementChild;
 
@@ -281,5 +291,12 @@ const GAME_BOARD = (function () {
     }, 400);
   };
 
+  const showWinnerRound = () => {
+    if (currentPlayer === player1) {
+      return (showWinner.innerHTML = "Player 1 Win");
+    } else {
+      return (showWinner.innerHTML = "Player 2 win");
+    }
+  };
   return { startGame, resetGame };
 })();
