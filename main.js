@@ -150,10 +150,10 @@ const GAME_BOARD = (function () {
           if (checkWinCondition()) {
             //win
             isPlaying = false;
+
             currentPlayer.addWin();
 
             restart();
-            
           } else if (boardArr.filter((elem) => elem).length === 9) {
             isPlaying = false;
             restart();
@@ -167,7 +167,6 @@ const GAME_BOARD = (function () {
                   currentPlayer.addWin();
 
                   restart();
-                  
                 } else if (boardArr.filter((elem) => elem).length === 9) {
                   restart();
                 } else {
@@ -185,14 +184,14 @@ const GAME_BOARD = (function () {
   const restart = () => {
     setTimeout(clearBoard, 1800);
     if (player1.getWin() < maximumFlags && player2.getWin() < maximumFlags) {
-      showWinnerRound();
+      showWinnerRound(currentPlayer);
       handleTurn();
 
       if (currentPlayer === player2 && player2.isCPU()) {
         setTimeout(() => {
           fillSquare(CPU_PLAYER.getRobotMoveIndex(boardArr));
           isPlaying = true;
-          
+
           handleTurn();
         }, 2600);
       } else {
@@ -264,7 +263,7 @@ const GAME_BOARD = (function () {
 
   const clearBoard = () => {
     boardArr = ["", "", "", "", "", "", "", "", ""];
-    showWinner.innerHTML = ''
+    showWinner.innerHTML = "";
     squares.forEach((square) => {
       let span = square.firstElementChild;
 
@@ -291,13 +290,13 @@ const GAME_BOARD = (function () {
     }, 400);
   };
 
-  const showWinnerRound = () => {
-    if (currentPlayer === player1) {
+  const showWinnerRound = (currentPlayer) => {
+    if (checkWinCondition() === false) {
+      return (showWinner.innerHTML = "TIE");
+    } else if (currentPlayer === player2) {
+      return (showWinner.innerHTML = "Player 2 Win");
+    } else if (currentPlayer === player1) {
       return (showWinner.innerHTML = "Player 1 Win");
-    } else if(currentPlayer === player2) {
-      return (showWinner.innerHTML = "Player 2 win");
-    }else {
-        return
     }
   };
   return { startGame, resetGame };
