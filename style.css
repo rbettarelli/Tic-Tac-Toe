@@ -160,6 +160,10 @@ span {
   color: var(--secondary);
 }
 
+button {
+  font-family: 'Indie Flower';
+}
+
 .square {
   display: flex;
   border: 3px solid var(--dark);

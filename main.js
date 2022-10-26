@@ -192,7 +192,7 @@ const GAME_BOARD = (function () {
         setTimeout(() => {
           fillSquare(CPU_PLAYER.getRobotMoveIndex(boardArr));
           isPlaying = true;
-          showWinnerRound();
+          
           handleTurn();
         }, 2600);
       } else {
@@ -294,8 +294,10 @@ const GAME_BOARD = (function () {
   const showWinnerRound = () => {
     if (currentPlayer === player1) {
       return (showWinner.innerHTML = "Player 1 Win");
-    } else {
+    } else if(currentPlayer === player2) {
       return (showWinner.innerHTML = "Player 2 win");
+    }else {
+        return
     }
   };
   return { startGame, resetGame };
